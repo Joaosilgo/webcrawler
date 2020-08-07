@@ -1,12 +1,20 @@
 # webcrawler
 
-Rrtrive text data from a dummy website and post on a file
+Retrive text data from a dummy website and post on a file
 Csv 
 
 
 ## Imports
 
+BeautifulSoup
+
+Writer
+
 ````python 
+
+import requests
+from bs4 import BeautifulSoup
+from csv import writer
 
 
 ````
@@ -40,7 +48,7 @@ with open('posts.csv', 'w') as csv_file:
 
 
 
-> 
+
 
 > py -3 -m venv .venv
 .venv\scripts\activate
@@ -49,6 +57,6 @@ with open('posts.csv', 'w') as csv_file:
 
 > pip install requests
 
-> 
+
 
 
