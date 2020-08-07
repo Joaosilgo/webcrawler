@@ -1,5 +1,45 @@
 # webcrawler
 
+Rrtrive text data from a dummy website and post on a file
+Csv 
+
+
+## Imports
+
+````python 
+
+
+````
+
+
+
+## Code
+``````python
+
+
+response = requests.get('https://webscraper.io/blog/')
+
+soup = BeautifulSoup(response.text, 'html.parser')
+
+posts = soup.find_all(class_='blogno')
+
+with open('posts.csv', 'w') as csv_file:
+    csv_writer = writer(csv_file)
+    headers = ['Title', 'Link', 'Date']
+    csv_writer.writerow(headers)
+
+    for post in posts:
+        title = post.find(class_='titleblog').get_text().replace('\n', '')
+        link = post.find('a')['href']
+        date = post.select('.date')[0].get_text()
+        csv_writer.writerow([title, link, date])
+
+
+
+``````
+
+
+
 > 
 
 > py -3 -m venv .venv
@@ -10,4 +50,5 @@
 > pip install requests
 
 > 
+
 
