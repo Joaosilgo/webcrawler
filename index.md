@@ -1,37 +1,71 @@
-## Welcome to GitHub Pages
 
-You can use the [editor on GitHub](https://github.com/Joaosilgo/webcrawler/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
-### Markdown
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+# web crawler 🎯
 
-```markdown
-Syntax highlighted code block
 
-# Header 1
-## Header 2
-### Header 3
+Retrive text data from a dummy website and post on a file
+Csv 
 
-- Bulleted
-- List
 
-1. Numbered
-2. List
+## Imports
 
-**Bold** and _Italic_ and `Code` text
+BeautifulSoup
 
-[Link](url) and ![Image](src)
-```
+Writer
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+````python 
 
-### Jekyll Themes
+import requests
+from bs4 import BeautifulSoup
+from csv import writer
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Joaosilgo/webcrawler/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
 
-### Support or Contact
+````
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+
+
+## Code
+``````python
+
+
+response = requests.get('https://webscraper.io/blog/')
+
+soup = BeautifulSoup(response.text, 'html.parser')
+
+posts = soup.find_all(class_='blogno')
+
+with open('posts.csv', 'w') as csv_file:
+    csv_writer = writer(csv_file)
+    headers = ['Title', 'Link', 'Date']
+    csv_writer.writerow(headers)
+
+    for post in posts:
+        title = post.find(class_='titleblog').get_text().replace('\n', '')
+        link = post.find('a')['href']
+        date = post.select('.date')[0].get_text()
+        csv_writer.writerow([title, link, date])
+
+
+
+``````
+
+
+
+
+
+> py -3 -m venv .venv
+.venv\scripts\activate
+
+> python -m pip install bs4
+
+> pip install requests
+
+
+
+
+
+
+
+
